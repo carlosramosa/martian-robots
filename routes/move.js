@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express')
 const { validate, ValidationError, Joi } = require('express-validation')
 const router = express.Router();
