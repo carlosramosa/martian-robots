@@ -12,11 +12,15 @@ const insertMovements = (movements) => mongoClient.db.collection('robots').inser
     totalSteps: movements.length,
   });
 
-const saveCoordinates = ({x, y}) =>
-  redisClient.set(JSON.stringify({ 'x': x, 'y': y }), 'lost');
+const saveCoordinates = ({x, y}) => {
+  console.log('INSERTING LOST COORDINATES', { x, y });
+  return redisClient.set(JSON.stringify({ 'x': x, 'y': y }), 'lost');
+}
 
-const getCoordinates = ({ x, y }) =>
-  redisClient.get(JSON.stringify({ 'x': x, 'y': y }));
+const getCoordinates = ({ x, y }) => {
+  console.log('CHECK DB FOR LOST COORDINATES', { 'lostCoordinates': { x, y }});
+  return redisClient.get(JSON.stringify({ 'x': x, 'y': y }));
+}
 
 module.exports = {
   insertMovements,
