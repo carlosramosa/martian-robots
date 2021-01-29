@@ -4,13 +4,13 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../src/app');
 var debug = require('debug')('martian-robots:server');
 var http = require('http');
-var redis = require('../lib/redis');
+var redis = require('../src/lib/redis');
 redis.getConnection();
 
-const { Connection } = require('../lib/mongo')
+const { Connection } = require('../src/lib/mongo')
 
 // Better if this goes in your server setup somewhere and waited for.
 Connection.connectToMongo()

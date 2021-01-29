@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "lint": "eslint 'src/**/*.js?(x)'",
+    "lint-fix": "eslint --fix 'src/**/*.js?(x)'"
   },
   "dependencies": {
     "async-redis": "^1.1.7",
@@ -21,5 +23,8 @@
     "node-cache": "^5.1.2",
     "promise-redis": "0.0.5",
     "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.18.0"
   }
 }

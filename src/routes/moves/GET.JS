@@ -1,4 +1,7 @@
-const { getAllMovements } = require('../../lib/movenments/robot-movements')
+'use strict';
+
+const { getAllMovements } = require('../../lib/movenments/robot-movements');
+
 /* GET users listing. */
 const getMovements =  async (req, res, next) => {
   const result = await getAllMovements();
