@@ -7,7 +7,7 @@ var logger = require('morgan');
 const { ValidationError } = require('express-validation')
 
 var indexRouter = require('./routes/index');
-var moveRouter = require('./routes/move');
+var moveRouter = require('./routes/moves');
 
 var app = express();
 

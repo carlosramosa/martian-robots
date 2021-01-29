@@ -7,10 +7,14 @@
 var app = require('../app');
 var debug = require('debug')('martian-robots:server');
 var http = require('http');
+var redis = require('../lib/redis');
+redis.getConnection();
 
-/**
- * Get port from environment and store in Express.
- */
+const { Connection } = require('../lib/mongo')
+
+// Better if this goes in your server setup somewhere and waited for.
+Connection.connectToMongo()
+
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
