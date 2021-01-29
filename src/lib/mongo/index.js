@@ -6,16 +6,15 @@ class Connection {
 		if ( this.db ) return Promise.resolve(this.db);
 		return MongoClient.connect(this.url, this.options)
 			.then(db => {
-				console.log('MONGO connected');
+				console.log('--- MONGO connected ---');
 				this.db = db;
 			});
 	}
 
-	// or in the new async world
 	static async connectToMongo() {
 		if (this.db) return this.db;
 		this.db = await MongoClient.connect(this.url, this.options);
-		console.log('MONGO connected');
+		console.log('--- MONGO connected ---');
 		return this.db;
 	}
 }

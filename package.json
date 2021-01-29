@@ -5,9 +5,11 @@
   "scripts": {
     "start": "node ./bin/www",
     "lint": "eslint 'src/**/*.js?(x)'",
-    "lint-fix": "eslint --fix 'src/**/*.js?(x)'"
+    "lint-fix": "eslint --fix 'src/**/*.js?(x)'",
+    "test": "jest"
   },
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "async-redis": "^1.1.7",
     "bluebird": "^3.7.2",
     "cookie-parser": "~1.4.3",
@@ -18,13 +20,16 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "lodash": "^4.17.20",
+    "mongo-mock": "^4.0.0",
     "mongodb": "^2",
     "morgan": "~1.9.0",
     "node-cache": "^5.1.2",
     "promise-redis": "0.0.5",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "redis-mock": "^0.56.3"
   },
   "devDependencies": {
-    "eslint": "^7.18.0"
+    "eslint": "^7.18.0",
+    "mongodb-memory-server": "^6.9.3"
   }
 }

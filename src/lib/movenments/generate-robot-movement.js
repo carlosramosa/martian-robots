@@ -2,7 +2,7 @@
 
 const redis = require('../redis');
 const redisClient = redis.getConnection();
-
+const { insertMovements, getCoordinates, saveCoordinates } = require('../db')
 const { Connection: mongoClient } = require('../mongo');
 const { last } = require('lodash/fp');
 
@@ -76,48 +76,61 @@ const instructionsMap = {
 	F: move,
 };
 
-const isOutOfLimit = (original, size) => (currentPosition) =>
-	(original.x !== currentPosition.x && (currentPosition.x > size.x || currentPosition.x < 0))
-    || (original.y !== currentPosition.y && (currentPosition.y > size.y || currentPosition.y < 0));
+const setLastLostTrue = (steps) =>
+  [steps.length - 1].lost = true;
 
-const makeMovement = async(position, size, instructions) => {
+const isOutOfLimit = (original, size) => (position) =>
+	(original.x !== position.x && (position.x > size.x || position.x < 0))
+    || (original.y !== position.y && (position.y > size.y || position.y < 0));
 
-	const isOutOfRange = isOutOfLimit(position, size);
-	let currentPosition = {...position};
-	const res = [];
+const makeMovement = async(initialPosition, size, instructions) => {
+
+	const isOutOfRange = isOutOfLimit(initialPosition, size);
+	let position = {...initialPosition};
+  const steps = [];
+  let i = 0;
+  // while (i<instructions.length && !position.lost) {
+  //   const instruction = instructions[i];
+  //   console.log(position);
+  //   let positionAux =  instructionsMap[instruction](position);
+  //   if (!isOutOfRange(positionAux)){
+  //     position = positionAux;
+  //     steps.push({...position, lost: false });
+  //   } else {
+  //     console.log('CHECK DB FOR LOST COORDINATES', { 'lostCoordinates': { x: positionAux.x, y: positionAux.y}});
+  //     const value = await getCoordinates(positionAux);
+  //     console.log('COORDINATES STATE', value ? value + '--> REMEMBER OTHER ROBOT LOST' : '--> THIS ROBOT WILL BE LOST');
+  //     if (value!=='lost') {
+  //       position.lost = true;
+  //       console.log('INSERTING LOST COORDINATES', { x: positionAux.x, y: positionAux.y});
+  //       await saveCoordinates(position)
+  //       setLastLostTrue(steps)[steps.length - 1].lost = true;
+  //     }
+  //   }
+  // }
 	for(const instruction of instructions){
-		if (!currentPosition.lost){
-			console.log(currentPosition);
-			let positionAux =  instructionsMap[instruction](currentPosition);
+		if (!position.lost){
+			console.log(position);
+			let positionAux =  instructionsMap[instruction](position);
 			if (!isOutOfRange(positionAux)){
-				currentPosition = positionAux;
-				// await client.rpush('explored', JSON.stringify({ 'x': positionAux.x, 'y': positionAux.y }));
-				res.push({...currentPosition, lost: false });
-				// var multi = client.multi()
-
-				// multi.exec(function(errors, results) {
-
-				// })
+				position = positionAux;
+				steps.push({...position, lost: false });
 			} else {
 				console.log('CHECK DB FOR LOST COORDINATES', { 'lostCoordinates': { x: positionAux.x, y: positionAux.y}});
 				const value = await redisClient.get(JSON.stringify({ 'x': positionAux.x, 'y': positionAux.y }));
 				console.log('COORDINATES STATE', value ? value + '--> REMEMBER OTHER ROBOT LOST' : '--> THIS ROBOT WILL BE LOST');
 				if (value!=='lost') {
-					currentPosition.lost = true;
+					position.lost = true;
 					console.log('INSERTING LOST COORDINATES', { x: positionAux.x, y: positionAux.y});
 					await redisClient.set(JSON.stringify({ 'x': positionAux.x, 'y': positionAux.y }), 'lost');
-					res[res.length - 1].lost = true;
+					steps[steps.length - 1].lost = true;
 				}
 			}
 		}
 	}
-	await mongoClient.db.collection('robots').insertOne({
-		movements: res,
-		lost: !!last(res).lost,
-		totalSteps: res.length,
-	});
-	console.log(res);
-	return last(res);
+	await insertMovements(steps);
+	console.log(steps);
+	return last(steps);
 };
 
 const moveAlien = async ({
