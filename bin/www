@@ -12,7 +12,6 @@ redis.getConnection();
 
 const { Connection } = require('../src/lib/mongo')
 
-// Better if this goes in your server setup somewhere and waited for.
 Connection.connectToMongo()
 
 

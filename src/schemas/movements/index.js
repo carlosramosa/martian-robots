@@ -34,6 +34,7 @@ const getMovementsSchema = {
 };
 
 module.exports = {
+  movementsSchema,
 	postMovementsSchema,
 	getMovementsSchema,
 };

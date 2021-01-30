@@ -1,12 +1,20 @@
 'use strict';
-const redis = require('../redis');
-const redisClient = redis.getConnection();
+
 const { insertMovements, insertExploredTerritory, getCoordinates, saveCoordinates } = require('../db');
 const { last , isEqual, negate} = require('lodash/fp');
 const { instructionsMap } = require('./instructions');
 
 const isLost = isEqual('lost');
 const isDifferentFromLost = negate(isLost);
+
+const isInside = (size, position) =>
+  size.y>=position.y && size.x>=position.x;
+
+const throwOutOfBoundsError = (size, position) => {
+  console.error(
+    `Position (${position.x}, ${position.x}) is out of limits ((0,0), (${size.x}, ${size.x}))`
+  );
+}
 
 const isOutOfLimits = (original, size) => (position) =>
 	(original.x !== position.x && (position.x > size.x || position.x < 0))
@@ -18,8 +26,6 @@ const makeMovement = (size) => async({ position: initialPosition, instructions }
 	let position = {...initialPosition};
 	const steps = [];
 	let i = 0;
-	// añadir testing
-	// guardar toda la superficie recorrida
 
 	while (i<instructions.length && !position.lost) {
 		const instruction = instructions[i];
@@ -51,7 +57,9 @@ const makeRobotMove = async ({
 {
   const movementsDone = [];
   for (const movement of movements) {
-    movementsDone.push(await makeMovement(size)(movement));
+    isInside(size, movement.position)
+    ? movementsDone.push(await makeMovement(size)(movement))
+    : throwOutOfBoundsError(size, movement.position);
   }
   return movementsDone;
 }
