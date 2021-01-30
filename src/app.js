@@ -8,7 +8,7 @@ const logger = require('morgan');
 const { ValidationError } = require('express-validation');
 
 const movementsRouter = require('./routes/movements');
-const exploredTerritoryRouter = require('./routes/exploration-territory');
+const exploredTerritoryRouter = require('./routes/explored-territory');
 
 const app = express();
 
