@@ -34,7 +34,7 @@ describe ('Test get robot movements', () => {
 	});
 
 	it('Should get robot lost movements', async () => {
-		const robotsMovements = await getAllMovements({ lost: true }).then(map(omit(['_id'])));
+		const robotsMovements = await getAllMovements('true').then(map(omit(['_id'])));
 
 		expect(robotsMovements).toHaveLength(1);
 

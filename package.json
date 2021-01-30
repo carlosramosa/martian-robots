@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "start-docker": "docker-compose up -d",
+    "stop-docker": "docker-compose stop",
     "lint": "eslint 'src/**/*.js?(x)'",
     "lint-fix": "eslint --fix 'src/**/*.js?(x)'",
     "test": "jest"

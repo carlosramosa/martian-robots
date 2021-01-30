@@ -6,6 +6,9 @@ services:
   mongo:
     image: mongo
   api:
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - MONGODB_ADDON_URI=mongodb://mongo:27017
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,7 +16,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/code
-      - /code/node_modules
+      - /code/src/node_modules
     depends_on:
       - redis
       - mongo

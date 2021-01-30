@@ -6,7 +6,7 @@ const { getAllMovements } = require('../../lib/movements/get-robot-movements');
 //   if (lost)
 // }
 
-const getMovements =  async ({ query: { lost } }, res, next) => {
+const getMovements =  async ({ query: { lost } }, res) => {
   const result = await getAllMovements(lost);
   res.send(result);
 };
