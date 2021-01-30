@@ -16,8 +16,10 @@ const saveCoordinates = ({x, y}) => {
 	return redis.getConnection().set(JSON.stringify({ 'x': x, 'y': y }), 'lost');
 };
 
-const findAllMovements = (params) =>
-	mongoClient.db.collection('robots').find(params).toArray();
+const findAllMovements = (lost) =>
+	mongoClient.db.collection('robots').find({
+    ...(lost ? { lost: lost === 'true' } : {})
+  }).toArray();
 
 const insertExploredTerritory = ({x, y}, status) => mongoClient.db.collection('explored_territory').insertOne({
 	status,
