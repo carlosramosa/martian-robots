@@ -3,10 +3,32 @@ const { makeRobotMove } = require('./lib/movements/generate-robot-movement');
 const { movementsSchema } = require('./schemas/movements')
 const redis = require('./lib/redis');
 redis.getConnection()
+const { compose, trim, toInteger } = require('lodash/fp');
 
 const { Connection } = require('./lib/mongo')
 
 Connection.connectToMongo()
+
+const toIntegerTrim = compose(toInteger, trim);
+
+const generateParams = (size, movementsInstructions) => {
+  const movements = movementsInstructions.map(({ position, instructions }) => {
+    const [ x, y, o ] = position.split(' ');
+    return {
+      position: {
+        x: toIntegerTrim(x),
+        y: toIntegerTrim(y),
+        o: o.trim()
+      },
+      instructions: instructions.split('').map((instruction) => instruction.trim()),
+    }
+  });
+  const [ x, y ] = size.split(' ');
+  return {
+    size: { x: toIntegerTrim(x), y: toIntegerTrim(y) },
+    movements,
+  }
+}
 
 const collectInputs = async (inputs = []) => {
   const prompts = [
@@ -49,18 +71,14 @@ const collectInputs = async (inputs = []) => {
     ])
     .then(async({ size }) => {
       const movementsInstructions = await collectInputs();
-      const movements = generateParams(movementsInstructions);
-      const [ x, y ] = size.split(' ');
-      const params = {
-        size: { x: x.trim(), y: y.trim() },
-        movements,
-      };
-      const { error } = movementsSchema.validate(params);
+      const movements = generateParams(size, movementsInstructions);
+
+      const { error } = movementsSchema.validate(movements);
       if (error) {
         console.error(error)
         process.exit(1);
       }
-      const res = await makeRobotMove(params);
+      const res = await makeRobotMove(movements);
       console.log(res);
       process.exit(0);
     })
@@ -70,14 +88,4 @@ const collectInputs = async (inputs = []) => {
     })
 )();
 
-  const generateParams = (movements) => movements.map(({ position, instructions }) => {
-    const [ x, y, o ] = position.split(' ');
-    return {
-      position: {
-        x: x.trim(),
-        y: y.trim(),
-        o: o.trim()
-      },
-      instructions: instructions.split('').map((instruction) => instruction.trim()),
-    }
-  });
+
