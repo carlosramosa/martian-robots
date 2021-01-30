@@ -48,8 +48,13 @@ const makeRobotMove = async ({
 	size,
 	movements,
 }) =>
-	Promise.all(movements.map(makeMovement(size)));
-
+{
+  const movementsDone = [];
+  for (const movement of movements) {
+    movementsDone.push(await makeMovement(size)(movement));
+  }
+  return movementsDone;
+}
 module.exports = {
 	makeRobotMove,
 };

@@ -14,8 +14,10 @@ jest.mock('../db', () => ({
 	insertMovements: jest.fn(),
 	saveCoordinates: jest.fn(),
 	getCoordinates: jest.fn()
-		.mockResolvedValueOnce('lost')
-		.mockResolvedValueOnce(null),
+		.mockResolvedValueOnce(null)
+    .mockResolvedValueOnce('lost')
+    .mockResolvedValueOnce('lost')
+    .mockResolvedValueOnce('lost'),
 	findAllMovements: jest.fn(),
 	insertExploredTerritory: jest.fn(),
 	findExploredTerritory: jest.fn(),
