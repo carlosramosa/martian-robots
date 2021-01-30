@@ -50,6 +50,12 @@ const makeMovement = (size) => async({ position: initialPosition, instructions }
 	return last(steps);
 };
 
+/**
+ * @function         makeRobotMove
+ * @param   {Object} size  coordinates of limits
+ * @param   {Array}  movements  list of instructions and position
+ * @returns {Array}  a list of movements result
+ */
 const makeRobotMove = async ({
 	size,
 	movements,

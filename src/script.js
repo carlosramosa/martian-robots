@@ -47,7 +47,7 @@ const collectInputs = async (inputs = []) => {
         validate: (value) => value.length >= 3 && value.length <= 5 || 'Min length 3, Max length 5',
       },
     ])
-    .then(async ({ size }) => {
+    .then(async({ size }) => {
       const movementsInstructions = await collectInputs();
       const movements = generateParams(movementsInstructions);
       const [ x, y ] = size.split(' ');

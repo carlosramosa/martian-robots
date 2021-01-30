@@ -2,8 +2,12 @@
 
 const { findExploredTerritory } = require('../db');
 
-const getExploredTerritory = (status) =>
-	findExploredTerritory(status);
+/**
+ * @function          getExploredTerritory
+ * @param   {String}  status failed|explored
+ * @returns {Array}   a list of coordinates
+ */
+const getExploredTerritory = findExploredTerritory;
 
 module.exports = {
 	getExploredTerritory,

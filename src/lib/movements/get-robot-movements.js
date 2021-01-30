@@ -2,8 +2,11 @@
 
 const { findAllMovements } = require('../db');
 
-const { Connection: mongoClient } = require('../mongo');
-
+/**
+ * @function getAllMovements
+ * @param   {String} lost true|false
+ * @returns {Array}  a list of movements
+ */
 const getAllMovements = findAllMovements;
 
 module.exports = {
