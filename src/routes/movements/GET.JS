@@ -9,5 +9,3 @@ const getMovements =  async ({ query: { lost } }, res, next) => {
 };
 
 module.exports = getMovements;
-
-//ARREGLAR ESTO  Y HACER README
