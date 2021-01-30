@@ -26,14 +26,14 @@ jest.mock('../db', () => ({
 }));
 
 describe ('Test generate robot movements', () => {
-	beforeAll(Connection.connectToMongo());
+	beforeAll(() => Connection.connectToMongo());
 
 	beforeEach(async() => {
 		await redisClient.flushall();
 		await Connection.db.dropDatabase();
 	});
 
-  afterAll(Connection.close());
+  afterAll(() => Connection.close());
 
 	it('Should make robot move', async () => {
 		const result = await makeRobotMove(robotsMovements);

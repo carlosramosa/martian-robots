@@ -25,7 +25,7 @@ describe ('Test get robot movements', () => {
 		await insertMovements(robotMovementLost);
 	});
 
-	afterAll(Connection.close());
+	afterAll(async() => Connection.close());
 
 	it('Should get robot movements', async () => {
 		const robotsMovements = await getAllMovements().then(map(omit(['_id'])));

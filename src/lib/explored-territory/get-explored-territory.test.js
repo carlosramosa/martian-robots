@@ -26,7 +26,7 @@ describe ('Test territory explored functions', () => {
 		await insertExploredTerritory(successExploration, 'explored');
 	});
 
-	afterAll(Connection.close());
+	afterAll(() => Connection.close());
 
 	it('Should get explored territory', async () => {
 		const robotsMovements = await getExploredTerritory().then(map(omit(['_id'])));

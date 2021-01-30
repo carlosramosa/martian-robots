@@ -32,7 +32,7 @@ All instruction strings will be less than 100 characters in length.
 
 ## SOLUTION
 
-I has developed a script with `inquirer` and an API.
+It has been developed a script with `inquirer` and an API.
 The API has been deployed on Heroku.
 
 ## END POINTS
