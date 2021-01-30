@@ -6,9 +6,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const { ValidationError } = require('express-validation');
 
-var indexRouter = require('./routes/index');
-var moveRouter = require('./routes/movements');
-const territoryRouter = require('./routes/exploration-territory');
+var movementsRouter = require('./routes/movements');
+const exploredTerritoryRouter = require('./routes/exploration-territory');
 
 var app = express();
 
@@ -22,9 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/movements', moveRouter);
-app.use('/territories', territoryRouter);
+app.use('/movements', movementsRouter);
+app.use('/explored-territory', exploredTerritoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
