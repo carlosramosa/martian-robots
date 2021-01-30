@@ -255,6 +255,9 @@ You could use:
 - Script inquirer: `npm run script`
 - Local environment: `npm run start`
 - Docker environment: `npm run start-docker`
+Default port is 3000
+
+## DEPLOYMENT
 
 API is deployed on Heroku.
 - URL: `https://martian-robots-cra.herokuapp.com/`
