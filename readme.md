@@ -29,15 +29,8 @@ Each robot is processed sequentially, i.e., finishes executing the robot instruc
 before the next robot begins execution.
 The maximum value for any coordinate is 50.
 All instruction strings will be less than 100 characters in length.
-
-## Use Cases
-
-There are many reasons to use the Gophish API. The most common use case is to gather report information for a given campaign, so that you can build custom reports in software you're most familiar with, such as Excel or Numbers.
-
-However, automating the creation of campaigns and campaign attributes such as templates, landing pages, and more provides the ability to create a fully automated phishing simulation program. This would allow campaigns to be run throughout the year automatically. This also allows the Gophish administrator to be included in the campaigns, since they wouldn't know exactly which day it would start!
-
 ## END POINTS
-### POST ROBOTS MOVEMENT
+### POST ROBOT MOVEMENT
 ```http
 POST http://localhost:3000/movements
 ```
@@ -247,27 +240,17 @@ Response:
         "y": 3
     },
 ```
-
 ## TESTING
 You could run `npm run test` in order to execute all tests
 
 ## RUN
 
 You could use:
+- Script inquirer: `npm run script`
 - Local environment: `npm run start`
 - Docker environment: `npm run start-docker`
 
 API is deployed on Heroku.
 - URL: `https://martian-robots-cra.herokuapp.com/`
 
-## Status Codes
 
-Gophish returns the following status codes in its API:
-
-| Status Code | Description |
-| :--- | :--- |
-| 200 | `OK` |
-| 201 | `CREATED` |
-| 400 | `BAD REQUEST` |
-| 404 | `NOT FOUND` |
-| 500 | `INTERNAL SERVER ERROR` |
