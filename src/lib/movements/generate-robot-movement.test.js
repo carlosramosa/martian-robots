@@ -1,3 +1,5 @@
+'use strict';
+
 const { robotsMovements, robotMovementResult } = require('../../fixtures');
 const { makeRobotMove } = require('./generate-robot-movement');
 
@@ -24,18 +26,15 @@ jest.mock('../db', () => ({
 }));
 
 describe ('Test generate robot movements', () => {
-	beforeAll(async() => {
-		await Connection.connectToMongo();
-	});
+	beforeAll(Connection.connectToMongo());
 
 	beforeEach(async() => {
 		await redisClient.flushall();
 		await Connection.db.dropDatabase();
 	});
 
-	afterAll(async() => {
-		await Connection.close();
-	});
+  afterAll(Connection.close());
+
 	it('Should make robot move', async () => {
 		const result = await makeRobotMove(robotsMovements);
 		expect(result).toEqual(robotMovementResult);

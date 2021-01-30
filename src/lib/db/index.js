@@ -2,7 +2,6 @@
 
 const { Connection: mongoClient } = require('../mongo');
 const redis = require('../redis');
-
 const { last } = require('lodash/fp');
 
 const insertMovements = (movements) => mongoClient.db.collection('robots').insertOne({

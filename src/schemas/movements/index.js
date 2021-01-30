@@ -1,3 +1,5 @@
+'use strict';
+
 const { Joi } = require('express-validation');
 
 const instructionSchema = Joi.string().valid('L', 'R', 'F');

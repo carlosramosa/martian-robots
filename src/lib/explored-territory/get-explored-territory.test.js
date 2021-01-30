@@ -1,3 +1,5 @@
+'use strict';
+
 const { robotsMovements } = require('../../fixtures/movements');
 const { getExploredTerritory } = require('./get-explored-territory');
 const { omit, map } = require('lodash/fp');
@@ -10,7 +12,7 @@ const {
 } = require('../../fixtures');
 
 global.console = {
-	log: jest.fn(), // console.log are ignored in tests
+	log: jest.fn(),
 };
 
 const { Connection } = require('../mongo');
@@ -24,9 +26,7 @@ describe ('Test territory explored functions', () => {
 		await insertExploredTerritory(successExploration, 'explored');
 	});
 
-	afterAll(async() => {
-		await Connection.close();
-	});
+	afterAll(Connection.close());
 
 	it('Should get explored territory', async () => {
 		const robotsMovements = await getExploredTerritory().then(map(omit(['_id'])));

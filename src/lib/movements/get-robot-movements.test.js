@@ -1,3 +1,5 @@
+'use strict';
+
 const {
 	robotMovementNoLost,
 	robotMovementLost,
@@ -23,13 +25,12 @@ describe ('Test get robot movements', () => {
 		await insertMovements(robotMovementLost);
 	});
 
-	afterAll(async() => {
-		await Connection.close();
-	});
+	afterAll(Connection.close());
 
 	it('Should get robot movements', async () => {
 		const robotsMovements = await getAllMovements().then(map(omit(['_id'])));
-		expect(robotsMovements).toHaveLength(2);
+
+    expect(robotsMovements).toHaveLength(2);
 		expect(robotsMovements).toEqual(allRobotMovements);
 	});
 
@@ -37,7 +38,6 @@ describe ('Test get robot movements', () => {
 		const robotsMovements = await getAllMovements('true').then(map(omit(['_id'])));
 
 		expect(robotsMovements).toHaveLength(1);
-
 		expect(robotsMovements).toEqual(allLostRobotMovements);
 	});
 });

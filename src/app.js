@@ -1,15 +1,16 @@
 'use strict';
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const { ValidationError } = require('express-validation');
 
-var movementsRouter = require('./routes/movements');
+const movementsRouter = require('./routes/movements');
 const exploredTerritoryRouter = require('./routes/exploration-territory');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
