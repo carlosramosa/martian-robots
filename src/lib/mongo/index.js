@@ -16,11 +16,15 @@ class Connection {
 		this.db = await MongoClient.connect(this.url, this.options);
 		console.log('--- MONGO connected ---');
 		return this.db;
-	}
+  }
+
+  static close () {
+    this.db.close();
+  }
 }
 
 Connection.db = null;
-Connection.url = process.env.MONGODB_ADDON_URI || 'mongodb://localhost:27017';
+Connection.url = process.env.MONGODB_ADDON_URI || process.env.MONGO_URL || 'mongodb://localhost:27017';
 Connection.options = {
 	bufferMaxEntries:   0,
 	reconnectTries:     5000,

@@ -8,6 +8,5 @@ module.exports = {
       dbName: 'mars'
     },
     autoStart: false,
-    instance: {}
   }
 };

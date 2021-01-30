@@ -70,5 +70,5 @@ const instructionsMap = {
 };
 
 module.exports = {
-  instructionsMap,
-}
+	instructionsMap,
+};

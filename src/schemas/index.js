@@ -1,3 +1,4 @@
 module.exports = {
-	...require('./move')
+	...require('./movements'),
+	...require('./explored-territory')
 };

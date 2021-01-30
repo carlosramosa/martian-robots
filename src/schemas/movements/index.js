@@ -10,23 +10,30 @@ const movementSchema = Joi.array().items(
 			x: coordSchema,
 			y: coordSchema,
 			o: Joi.string().valid('N', 'S', 'W', 'E')
-    }),
-		instructions: Joi.array().items(Joi.string()).max(100),
+		}),
+		instructions: Joi.array().items(instructionSchema).min(1).max(100),
 	})
 );
 
 const movementsSchema = Joi.object({
-  size: Joi.object({
-    x: coordSchema,
-    y: coordSchema,
-  }).required(),
-  movements: movementSchema.required(),
+	size: Joi.object({
+		x: coordSchema,
+		y: coordSchema,
+	}).required(),
+	movements: movementSchema.required(),
 });
 
-const postMovements = {
+const postMovementsSchema = {
 	body: movementsSchema,
 };
 
+const getMovementsSchema = {
+	query: Joi.object({
+		lost: Joi.bool()
+	})
+};
+
 module.exports = {
-	postMovements,
+	postMovementsSchema,
+	getMovementsSchema,
 };

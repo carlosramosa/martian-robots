@@ -1,9 +1,10 @@
 'use strict';
 
+const { findAllMovements } = require('../db');
+
 const { Connection: mongoClient } = require('../mongo');
 
-const getAllMovements = () =>
-	mongoClient.db.collection('robots').find().toArray();
+const getAllMovements = findAllMovements;
 
 module.exports = {
 	getAllMovements,

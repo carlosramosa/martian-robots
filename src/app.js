@@ -4,10 +4,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const { ValidationError } = require('express-validation')
+const { ValidationError } = require('express-validation');
 
 var indexRouter = require('./routes/index');
-var moveRouter = require('./routes/moves');
+var moveRouter = require('./routes/movements');
+const territoryRouter = require('./routes/exploration-territory');
 
 var app = express();
 
@@ -22,20 +23,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/move', moveRouter);
+app.use('/movements', moveRouter);
+app.use('/territories', territoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+	next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  if (err instanceof ValidationError) {
-    return res.status(err.statusCode).json(err)
-  }
+	if (err instanceof ValidationError) {
+		return res.status(err.statusCode).json(err);
+	}
 
-  return res.status(500).json(err)
-})
+	return res.status(500).json(err);
+});
 
 module.exports = app;
