@@ -33,6 +33,9 @@
   },
   "devDependencies": {
     "eslint": "^7.18.0",
-    "mongodb-memory-server": "^6.9.3"
+    "install": "^0.13.0",
+    "mongodb-memory-server": "^6.9.3",
+    "npm": "^6.14.11",
+    "supertest": "^6.1.3"
   }
 }
