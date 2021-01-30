@@ -29,6 +29,12 @@ Each robot is processed sequentially, i.e., finishes executing the robot instruc
 before the next robot begins execution.
 The maximum value for any coordinate is 50.
 All instruction strings will be less than 100 characters in length.
+
+## SOLUTION
+
+I has developed a script with `inquirer` and an API.
+The API has been deployed on Heroku.
+
 ## END POINTS
 ### POST ROBOT MOVEMENT
 ```http
@@ -141,8 +147,8 @@ GET http://localhost:3000/movements?${lost}
 ```
 
 You could send:
-- lost: true|false (optional)
-- 
+- lost: true | false (optional)
+
 #### Example
 
 ```http
@@ -212,11 +218,11 @@ Response:
 ### GET EXPLORED TERRITORY
 
 ```http
-GET http://localhost:3000/explored-territory?${explored}
+GET http://localhost:3000/explored-territory?${status}
 ```
 
 You could send:
-- status: explored|failed (optional)
+- status: explored | failed (optional)
 
 #### Example
 
