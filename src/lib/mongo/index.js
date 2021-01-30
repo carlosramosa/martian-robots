@@ -16,11 +16,11 @@ class Connection {
 		this.db = await MongoClient.connect(this.url, this.options);
 		console.log('--- MONGO connected ---');
 		return this.db;
-  }
+	}
 
-  static close () {
-    this.db.close();
-  }
+	static close () {
+		this.db.close();
+	}
 }
 
 Connection.db = null;

@@ -1,0 +1,12 @@
+[
+  {
+    "status": "failed",
+    "x": 3,
+    "y": 4
+  },
+  {
+    "status": "explored",
+    "x": 5,
+    "y": 4
+  }
+]

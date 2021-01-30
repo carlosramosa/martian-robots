@@ -1,16 +1,15 @@
-const { movements } = require('../../fixtures/movements');
+const { robotsMovements, robotMovementResult } = require('../../fixtures');
 const { makeRobotMove } = require('./generate-robot-movement');
-const {
-	insertMovements,
-	saveCoordinates,
-	getCoordinates,
-	findAllMovements,
-	insertExploredTerritory,
-	findExploredTerritory
-} = require('../db');
 
+const redis = require('../redis');
+const redisClient = redis.getConnection();
+const { Connection } = require('../mongo');
+
+global.console = {
+	log: jest.fn(), // console.log are ignored in tests
+};
 jest.mock('redis', () => require('redis-mock'));
-jest.mock()
+
 jest.mock('../db', () => ({
 	insertMovements: jest.fn(),
 	saveCoordinates: jest.fn(),
@@ -23,27 +22,20 @@ jest.mock('../db', () => ({
 }));
 
 describe ('Test generate robot movements', () => {
+	beforeAll(async() => {
+		await Connection.connectToMongo();
+	});
+
+	beforeEach(async() => {
+		await redisClient.flushall();
+		await Connection.db.dropDatabase();
+	});
+
+	afterAll(async() => {
+		await Connection.close();
+	});
 	it('Should make robot move', async () => {
-		const result = await makeRobotMove(movements);
-		expect(result).toEqual([
-			{
-				'x': 1,
-				'y': 1,
-				'o': 'E',
-				'lost': false
-			},
-			{
-				'x': 3,
-				'y': 3,
-				'o': 'N',
-				'lost': true
-			},
-			{
-				'x': 2,
-				'y': 3,
-				'o': 'S',
-				'lost': false
-			}
-		]);
+		const result = await makeRobotMove(robotsMovements);
+		expect(result).toEqual(robotMovementResult);
 	});
 });
