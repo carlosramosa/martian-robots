@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "170b730a-60c3-4cf1-90b5-cc4176248a3e",
+		"name": "martian-robots",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST MOVEMENTS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"size\": {\n        \"x\": 5,\n        \"y\": 3\n    },\n    \"movements\": [\n        {\n            \"position\": {\n                \"x\": 1,\n                \"y\": 1,\n                \"o\": \"E\"\n            },\n            \"instructions\": [\n                \"R\",\n                \"F\",\n                \"R\",\n                \"F\",\n                \"R\",\n                \"F\",\n                \"R\",\n                \"F\"\n            ]\n        },\n        {\n            \"position\": {\n                \"x\": 3,\n                \"y\": 2,\n                \"o\": \"N\"\n            },\n            \"instructions\": [\n                \"F\",\n                \"R\",\n                \"R\",\n                \"F\",\n                \"L\",\n                \"L\",\n                \"F\",\n                \"F\",\n                \"R\",\n                \"R\",\n                \"F\",\n                \"L\",\n                \"L\"\n            ]\n        },\n        {\n            \"position\": {\n                \"x\": 0,\n                \"y\": 3,\n                \"o\": \"W\"\n            },\n            \"instructions\": [\n                \"L\",\n                \"L\",\n                \"F\",\n                \"F\",\n                \"F\",\n                \"L\",\n                \"F\",\n                \"L\",\n                \"F\",\n                \"L\"\n            ]\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/movements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET MOVEMENTS",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/movements",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movements"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET EXPLORED TERRITORY",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/explored-territory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"explored-territory"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

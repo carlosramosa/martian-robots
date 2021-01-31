@@ -18,15 +18,19 @@ global.console = {
 const { Connection } = require('../mongo');
 jest.mock('redis', () => require('redis-mock'));
 
+
+beforeAll(async() => {
+  await Connection.connectToMongo();
+  await insertExploredTerritory(failedExploration, failedExploration.status);
+  await insertExploredTerritory(successExploration, 'explored');
+});
+
+afterAll(async() => {
+  await Connection.close()
+});
+
 describe ('Test territory explored functions', () => {
 
-	beforeAll(async() => {
-		await Connection.connectToMongo();
-		await insertExploredTerritory(failedExploration, failedExploration.status);
-		await insertExploredTerritory(successExploration, 'explored');
-	});
-
-	afterAll(() => Connection.close());
 
 	it('Should get explored territory', async () => {
 		const robotsMovements = await getExploredTerritory().then(map(omit(['_id'])));

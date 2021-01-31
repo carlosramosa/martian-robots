@@ -3,6 +3,10 @@
 const request = require('supertest')
 const app = require('../../app');
 
+global.console = {
+	log: jest.fn(),
+};
+
 jest.mock('../../lib/db', () => ({
   findAllMovements: jest.fn()
   .mockResolvedValueOnce([])

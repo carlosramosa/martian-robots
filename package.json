@@ -10,7 +10,7 @@
     "docker-build": "docker-compose build",
     "lint": "eslint 'src/**/*.js?(x)'",
     "lint-fix": "eslint --fix 'src/**/*.js?(x)'",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "dependencies": {
     "@shelf/jest-mongodb": "^1.2.3",
@@ -19,6 +19,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "express-readme": "0.0.5",
     "express-validation": "^3.0.6",
     "http": "0.0.1-security",
     "http-errors": "~1.6.2",

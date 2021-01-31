@@ -3,13 +3,14 @@
 const { robotsMovements, robotMovementResult } = require('../../fixtures');
 const { makeRobotMove } = require('./generate-robot-movement');
 
+global.console = {
+	log: jest.fn(),
+};
+
 const redis = require('../redis');
 const redisClient = redis.getConnection();
 const { Connection } = require('../mongo');
 
-global.console = {
-	log: jest.fn(), // console.log are ignored in tests
-};
 jest.mock('redis', () => require('redis-mock'));
 
 jest.mock('../db', () => ({

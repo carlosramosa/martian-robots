@@ -4,6 +4,10 @@ const request = require('supertest')
 const app = require('../../app');
 const { robotsMovements } = require('../../fixtures');
 
+global.console = {
+	log: jest.fn(),
+};
+
 jest.mock('../../lib/db');
 
 jest.mock('../../lib/movements/generate-robot-movement', () => ({

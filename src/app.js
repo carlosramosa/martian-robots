@@ -11,6 +11,7 @@ const movementsRouter = require('./routes/movements');
 const exploredTerritoryRouter = require('./routes/explored-territory');
 
 const app = express();
+require('express-readme')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
